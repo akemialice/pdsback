@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{../css/login.css}">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{../favicon.ico}">
+    <title class="lang" th:text="#{cadastre-se!-michelin}">Cadastre-se! - Michelin</title>
+    <!-- Carrega biblioteca do Jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+<!-- Escolha dos idiomas -->
+<div id="idiomas">
+    <select id="year">
+        <option value="pt" id="pt">PT</option>
+        <option value="en" id="en">EN</option>
+    </select>
+</div>
+
+<div class="main-login">
+    <div class="card-login">
+        <h1 class="lang" th:text="#{conta}">Criar Conta</h1>
+        <div class="textfield">
+            <label class="lang" th:text="#{nome}" for="usuario">Nome</label>
+            <input type="name" name="nome" id="nome" placeholder="Nome">
+            <div class="erro" id="erro-usuario"></div>
+        </div>
+        <div class="textfield">
+            <label class="lang" th:text="#{email}" for="Email">E-mail</label>
+            <input type="email" name="Email" id="email" placeholder="Email">
+            <div class="erro" id="erro-email"></div>
+        </div>
+        <div class="textfield">
+            <label class="lang" th:text="#{senha}" for="Senha">Senha</label>
+            <input type="password" name="Senha" id="senha" placeholder="Senha" minlength="8">
+            <div class="erro" id="erro-senha"></div>
+        </div>
+        <button class="btin-login lang" th:text="#{conta}" id="btin-login">Criar Conta</button>
+
+        <div class="signup-link"></div>
+
+        <div class="button-container">
+            <button class="google-signin-button" onclick="signIn()">
+                <img src="https://clipartart.com/images/clipart-google-logo-1.jpg" alt="Google logo" />
+                <h5 class="lang" th:text="#{google}">Faça login no Google</h5>
+            </button>
+
+            <button class="facebook-login-button" onclick="signIn()">
+                <img src="https://kohila.edu.ee/wp-content/uploads/2020/04/6744629-300x300.png" alt="Facebook-logo">
+                <h5 class="lang" th:text="#{facebook}">Faça login com o Facebook</h5>
+            </button>
+        </div>
+    </div>
+</div>
+<script src="idiomas.js"></script>
+<script th:inline="javascript">
+        const btinLogin = document.getElementById('btin-login');
+        const usuarioInput = document.getElementById('usuario');
+        const senhaInput = document.getElementById('senha');
+        const erroUsuario = document.getElementById('erro-usuario');
+        const erroSenha = document.getElementById('erro-senha');
+
+        btinLogin.addEventListener('click', () => {
+            // Valida o campo "Usuário"
+            if (usuarioInput.value === '') {
+                erroUsuario.textContent = /*[[#{erro-usuario}]]*/ 'Por favor, preencha o campo Usuário';
+            } else if (!usuarioInput.checkValidity()) {
+                erroUsuario.textContent = /*[[#{erro-email-invalido}]]*/ 'Por favor, insira um endereço de e-mail válido';
+            } else {
+                erroUsuario.textContent = '';
+            }
+
+            // Valida o campo "Senha"
+            if (senhaInput.value === '') {
+                erroSenha.textContent = /*[[#{erro-senha}]]*/ 'Por favor, preencha o campo Senha';
+            } else if (senhaInput.value.length < 8) {
+                erroSenha.textContent = /*[[#{erro-senha-curta}]]*/ 'A senha deve ter pelo menos 8 caracteres';
+            } else {
+                erroSenha.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>
